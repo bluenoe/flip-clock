@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flip Clock</title>
+  <meta name="description" content="Smooth flip clock with themes, timezones, and PWA support">
+  <meta name="theme-color" content="#0b0f14">
+  
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" href="/icons/192.png">
+  <link rel="apple-touch-icon" href="/icons/192.png">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="/src/css/base.css">
+  <link rel="stylesheet" href="/src/css/theme.css">
+  <link rel="stylesheet" href="/src/css/flip.css">
+</head>
+<body class="theme-dark">
+  <!-- Controls Panel -->
+  <nav class="controls" aria-label="Clock controls">
+    <div class="controls-group">
+      <button class="control-btn" id="soundToggle" aria-pressed="false" aria-label="Toggle tick sound">
+        <span class="icon">🔊</span>
+        <span class="label">Sound</span>
+      </button>
+      
+      <button class="control-btn" id="timeFormatToggle" aria-pressed="false" aria-label="Toggle 12/24 hour format">
+        <span class="icon">⏰</span>
+        <span class="label">12h</span>
+      </button>
+    </div>
+    
+    <div class="controls-group">
+      <div class="control-item">
+        <label for="themeSelect">Theme</label>
+        <select id="themeSelect" aria-label="Select theme">
+          <option value="dark">Dark</option>
+          <option value="light">Light</option>
+          <option value="neon">Neon</option>
+        </select>
+      </div>
+      
+      <div class="control-item">
+        <label for="primaryColor">Color</label>
+        <input type="color" id="primaryColor" value="#66a3ff" aria-label="Primary color">
+      </div>
+    </div>
+    
+    <div class="controls-group">
+      <div class="control-item timezone-picker">
+        <label for="timezoneSearch">Timezone</label>
+        <div class="timezone-input-wrapper">
+          <input type="text" id="timezoneSearch" placeholder="Search timezone..." aria-label="Search timezone">
+          <div class="timezone-dropdown" id="timezoneDropdown" role="listbox" aria-label="Timezone options"></div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Clock Container -->
+  <main class="clock-container">
+    <div class="clock" id="clock" role="timer" aria-live="polite" aria-label="Current time">
+      <div class="time-group">
+        <div class="flip-tile">
+          <div class="flip-number" data-key="h1">0</div>
+          <div class="tile-label">H</div>
+        </div>
+        <div class="flip-tile">
+          <div class="flip-number" data-key="h2">0</div>
+        </div>
+      </div>
+      
+      <div class="separator">:</div>
+      
+      <div class="time-group">
+        <div class="flip-tile">
+          <div class="flip-number" data-key="m1">0</div>
+          <div class="tile-label">M</div>
+        </div>
+        <div class="flip-tile">
+          <div class="flip-number" data-key="m2">0</div>
+        </div>
+      </div>
+      
+      <div class="separator">:</div>
+      
+      <div class="time-group">
+        <div class="flip-tile">
+          <div class="flip-number" data-key="s1">0</div>
+          <div class="tile-label">S</div>
+        </div>
+        <div class="flip-tile">
+          <div class="flip-number" data-key="s2">0</div>
+        </div>
+      </div>
+      
+      <div class="ampm-indicator" id="ampmIndicator" aria-label="AM/PM indicator">AM</div>
+    </div>
+  </main>
+
+  <!-- App Script -->
+  <script type="module" src="/src/js/main.js"></script>
+</body>
+</html>

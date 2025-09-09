@@ -1,0 +1,175 @@
+/* Flip animation styles */
+.flip-tile {
+  width: clamp(80px, 18vw, 140px);
+  height: clamp(100px, 22vw, 180px);
+  background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--card) 100%);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.flip-number {
+  font-size: clamp(2.5rem, 8vw, 6rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.05em;
+  color: var(--text);
+  transition: all var(--transition-duration) ease;
+  transform-origin: center center;
+}
+
+.tile-label {
+  position: absolute;
+  bottom: clamp(0.5rem, 2vw, 1rem);
+  font-size: clamp(0.7rem, 1.8vw, 1rem);
+  font-weight: 600;
+  color: var(--text-secondary);
+  opacity: 0.6;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* Flip animation */
+.flip-animation {
+  animation: flipCard var(--flip-duration) ease-in-out;
+  transform-origin: center center;
+}
+
+@keyframes flipCard {
+  0% {
+    transform: rotateX(0deg);
+    filter: brightness(1);
+  }
+  49% {
+    transform: rotateX(-90deg);
+    filter: brightness(0.6);
+  }
+  50% {
+    transform: rotateX(90deg);
+    filter: brightness(0.6);
+  }
+  100% {
+    transform: rotateX(0deg);
+    filter: brightness(1);
+  }
+}
+
+/* Reduced motion version */
+@media (prefers-reduced-motion: reduce) {
+  .flip-animation {
+    animation: flipCardReduced 0.3s ease-in-out;
+  }
+  
+  @keyframes flipCardReduced {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(0.95);
+      opacity: 0.7;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+}
+
+/* Enhance flip effect with subtle 3D */
+.flip-tile::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 50%;
+  background: linear-gradient(
+    180deg, 
+    rgba(255, 255, 255, 0.08) 0%, 
+    rgba(255, 255, 255, 0.02) 100%
+  );
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+  pointer-events: none;
+}
+
+.flip-tile::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    180deg, 
+    rgba(0, 0, 0, 0.02) 0%, 
+    rgba(0, 0, 0, 0.15) 100%
+  );
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
+  pointer-events: none;
+}
+
+/* Divider line effect */
+.flip-tile {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+/* Hover effects for interactive feel */
+.flip-tile:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    var(--shadow),
+    0 20px 40px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flip-tile:hover {
+    transform: none;
+  }
+}
+
+/* Enhanced shadow for depth */
+.flip-tile {
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.4),
+    inset 0 2px 0 rgba(255, 255, 255, 0.05),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+/* Theme-specific enhancements */
+.theme-neon .flip-tile::before {
+  background: linear-gradient(
+    180deg, 
+    var(--glow) 0%, 
+    transparent 100%
+  );
+  opacity: 0.3;
+}
+
+.theme-light .flip-tile {
+  background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.theme-light .flip-tile::before {
+  background: linear-gradient(
+    180deg, 
+    rgba(255, 255, 255, 0.9) 0%, 
+    rgba(255, 255, 255, 0.1) 100%
+  );
+}
+
+.theme-light .flip-tile::after {
+  background: linear-gradient(
+    180deg, 
+    rgba(0, 0, 0, 0.01) 0%, 
+    rgba(0, 0, 0, 0.06) 100%
+  );
+}

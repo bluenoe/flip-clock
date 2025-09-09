@@ -1,0 +1,17 @@
+{
+  "name": "flip-clock-web",
+  "version": "1.0.0",
+  "description": "Enhanced flip clock with PWA, themes, and timezone support",
+  "main": "public/index.html",
+  "scripts": {
+    "dev": "serve public -p 3000",
+    "serve": "serve public -p 3000",
+    "build": "echo 'No build step required for vanilla project'"
+  },
+  "devDependencies": {
+    "serve": "^14.0.0"
+  },
+  "keywords": ["flip-clock", "pwa", "vanilla-js", "timezone"],
+  "author": "",
+  "license": "MIT"
+}

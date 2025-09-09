@@ -1,0 +1,4 @@
+# This is a placeholder for tick.mp3
+# In a real implementation, you would place a short audio file here
+# The file should be a brief tick sound, ideally under 50ms duration
+# Supported formats: MP3, OGG, WAV
