@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Flip Clock</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#0b0f14; --card:#121826; --txt:#e6f0ff; --glow:#66a3ff; }
+  *{box-sizing:border-box} body{
+    margin:0; height:100svh; display:grid; place-items:center;
+    background:radial-gradient(1200px 800px at 50% 35%, #0f1629 0%, var(--bg) 60%);
+    font-family:"Roboto Mono",monospace; color:var(--txt);
+  }
+  .wrap{ display:flex; gap:16px; align-items:center }
+  .sep{ opacity:.4; font-size:64px; margin:0 4px }
+  .tile{
+    width:min(22vw,140px); height:min(28vw,180px);
+    background:linear-gradient(180deg,#0e1422 0%, var(--card) 100%);
+    border-radius:24px; box-shadow:0 10px 30px #0006, inset 0 2px 0 #ffffff0d, 0 0 24px #000;
+    position:relative; overflow:hidden; display:grid; place-items:center;
+  }
+  .num{ font-size: clamp(48px, 10vw, 96px); line-height:1; letter-spacing:2px }
+  /* Flip effect */
+  .flip{
+    animation:flip .6s ease both;
+    transform-origin:center top;
+  }
+  @keyframes flip{
+    0%   { transform:rotateX(0deg);   filter:brightness(1); }
+    49%  { transform:rotateX(-90deg); filter:brightness(.6); }
+    50%  { transform:rotateX(90deg);  filter:brightness(.6); }
+    100% { transform:rotateX(0deg);   filter:brightness(1); }
+  }
+  .label{position:absolute; bottom:10px; font-size:12px; opacity:.55; letter-spacing:.2em}
+</style>
+</head>
+<body>
+  <div class="wrap" id="clock">
+    <div class="tile"><div class="num" data-k="h1">0</div><div class="label">H</div></div>
+    <div class="tile"><div class="num" data-k="h2">0</div></div>
+    <div class="sep">:</div>
+    <div class="tile"><div class="num" data-k="m1">0</div><div class="label">M</div></div>
+    <div class="tile"><div class="num" data-k="m2">0</div></div>
+    <div class="sep">:</div>
+    <div class="tile"><div class="num" data-k="s1">0</div><div class="label">S</div></div>
+    <div class="tile"><div class="num" data-k="s2">0</div></div>
+  </div>
+
+<script>
+  const el = k => document.querySelector(`.num[data-k="${k}"]`);
+  let prev = "000000";
+  function tick(){
+    const d = new Date();
+    const hh = String(d.getHours()).padStart(2,'0');
+    const mm = String(d.getMinutes()).padStart(2,'0');
+    const ss = String(d.getSeconds()).padStart(2,'0');
+    const cur = hh+mm+ss;
+    const keys = ['h1','h2','m1','m2','s1','s2'];
+    for(let i=0;i<6;i++){
+      if(cur[i]!==prev[i]){
+        const n = el(keys[i]);
+        n.textContent = cur[i];
+        n.classList.remove('flip'); // restart animation
+        // force reflow
+        void n.offsetWidth;
+        n.classList.add('flip');
+      }
+    }
+    prev = cur;
+  }
+  tick(); setInterval(tick, 1000);
+</script>
+</body>
+</html>
